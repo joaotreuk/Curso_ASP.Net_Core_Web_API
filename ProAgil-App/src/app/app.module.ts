@@ -5,12 +5,14 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { EventosComponent } from './eventos/eventos.component';
+import { BarraNavegacaoComponent } from './barraNavegacao/barraNavegacao.component';
 
 @NgModule({
-  declarations: [
+  declarations: [	
     AppComponent,
-    EventosComponent
-  ],
+    EventosComponent,
+      BarraNavegacaoComponent
+   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
