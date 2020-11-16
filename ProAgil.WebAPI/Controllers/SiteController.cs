@@ -3,8 +3,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using ProAgil.WebAPI.Data;
-using ProAgil.WebAPI.Models;
+using ProAgil.Dominio;
+using ProAgil.Repositorio;
 
 namespace ProAgil.WebAPI.Controllers
 {
@@ -12,12 +12,12 @@ namespace ProAgil.WebAPI.Controllers
     [Route("[controller]")]
     public class SiteController : ControllerBase
     {
-        public SiteController(DataContext contexto)
+        public SiteController(ProAgilContexto contexto)
         {
             Contexto = contexto;
         }
 
-        public DataContext Contexto { get; }
+        public ProAgilContexto Contexto { get; }
 
         [HttpGet]
         public async Task<IActionResult> Get()
@@ -38,7 +38,7 @@ namespace ProAgil.WebAPI.Controllers
         {
             try
             {
-                Evento resultado = await Contexto.Eventos.FirstOrDefaultAsync(item => item.EventoId == id);
+                Evento resultado = await Contexto.Eventos.FirstOrDefaultAsync(item => item.Id == id);
                 return Ok(resultado);
             }
             catch (System.Exception)

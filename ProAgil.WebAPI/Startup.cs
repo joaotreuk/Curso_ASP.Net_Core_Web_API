@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using ProAgil.WebAPI.Data;
+using ProAgil.Repositorio;
 
 namespace ProAgil.WebAPI
 {
@@ -19,7 +19,8 @@ namespace ProAgil.WebAPI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<DataContext>();
+            services.AddDbContext<ProAgilContexto>();
+            services.AddScoped<IProAgilRepositorio, ProAgilRepositorio>();
             services.AddControllers();
             services.AddCors();
         }
@@ -33,6 +34,7 @@ namespace ProAgil.WebAPI
             }
 
             app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
+            app.UseStaticFiles();
 
             app.UseHttpsRedirection();
 
