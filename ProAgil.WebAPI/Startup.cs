@@ -1,9 +1,11 @@
+using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using ProAgil.Repositorio;
+using ProAgil.WebAPI.Helpers;
 
 namespace ProAgil.WebAPI
 {
@@ -21,6 +23,7 @@ namespace ProAgil.WebAPI
         {
             services.AddDbContext<ProAgilContexto>();
             services.AddScoped<IProAgilRepositorio, ProAgilRepositorio>();
+            services.AddSingleton(new MapperConfiguration(mc => mc.AddProfile(new AutoMapperProfiles())).CreateMapper());
             services.AddControllers();
             services.AddCors();
         }
@@ -35,17 +38,10 @@ namespace ProAgil.WebAPI
 
             app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
             app.UseStaticFiles();
-
             app.UseHttpsRedirection();
-
             app.UseRouting();
-
             app.UseAuthorization();
-
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapControllers();
-            });
+            app.UseEndpoints(endpoints => endpoints.MapControllers());
         }
     }
 }
