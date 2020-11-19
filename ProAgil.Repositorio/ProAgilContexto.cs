@@ -1,9 +1,10 @@
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using ProAgil.Dominio;
 
 namespace ProAgil.Repositorio
 {
-    public class ProAgilContexto : DbContext
+    public class ProAgilContexto : IdentityDbContext
     {
         public DbSet<Evento> Eventos { get; set; }
         public DbSet<Palestrante> Palestrantes { get; set; }

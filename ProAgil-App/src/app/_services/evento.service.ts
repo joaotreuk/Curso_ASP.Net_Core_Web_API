@@ -9,6 +9,14 @@ export class EventoService {
 
   constructor(private http: HttpClient) { }
 
+  fazerUpload(arquivo: File, nome: string): any {
+    const arquivoParaUpload = arquivo[0] as File;
+    const formData = new FormData();
+    formData.append('arquivo', arquivoParaUpload, nome);
+
+    return this.http.post(`${this.baseURL}/upload`, formData);
+  }
+
   obterTodosEvento(): Observable<Evento[]> {
     return this.http.get<Evento[]>(this.baseURL);
   }
