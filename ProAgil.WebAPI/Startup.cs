@@ -79,6 +79,8 @@ namespace ProAgil.WebAPI
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseAuthentication(); // Define que usa autenticação
+
             app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
             app.UseStaticFiles();
             app.UseStaticFiles(new StaticFileOptions(){

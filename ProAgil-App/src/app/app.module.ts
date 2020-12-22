@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
@@ -17,6 +17,14 @@ import { PalestrantesComponent } from './palestrantes/palestrantes.component';
 import { ContatosComponent } from './contatos/contatos.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { BarraTituloComponent } from './_shared/barra-titulo/barra-titulo.component';
+import { UserComponent } from './user/user.component';
+import { LoginComponent } from './user/login/login.component';
+import { RegistrationComponent } from './user/registration/registration.component';
+import { EventoService } from './_services/evento.service';
+import { AuthInterceptor } from './auth/auth.interceptor';
+import { EventoEditComponent } from './eventos/eventoEdit/eventoEdit.component';
+import { TabsModule } from 'ngx-bootstrap/tabs';
+import { NgxMaskModule } from 'ngx-mask';
 
 @NgModule({
   declarations: [
@@ -27,8 +35,12 @@ import { BarraTituloComponent } from './_shared/barra-titulo/barra-titulo.compon
     PalestrantesComponent,
     ContatosComponent,
     DashboardComponent,
-    BarraTituloComponent
-  ],
+    BarraTituloComponent,
+    UserComponent,
+    LoginComponent,
+    RegistrationComponent,
+    EventoEditComponent
+   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -44,9 +56,18 @@ import { BarraTituloComponent } from './_shared/barra-titulo/barra-titulo.compon
       timeOut: 10000,
       positionClass: 'toast-bottom-right',
       preventDuplicates: true,
-    })
+    }),
+    TabsModule.forRoot(),
+    NgxMaskModule.forRoot()
   ],
-  providers: [],
+  providers: [
+    EventoService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

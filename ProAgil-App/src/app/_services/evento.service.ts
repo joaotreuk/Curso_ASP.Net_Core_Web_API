@@ -5,9 +5,9 @@ import { Evento } from '../_models/Evento';
 
 @Injectable()
 export class EventoService {
-  baseURL = 'https://localhost:5001/evento';
+  baseURL = 'https://localhost:44316/evento';
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   fazerUpload(arquivo: File, nome: string): any {
     const arquivoParaUpload = arquivo[0] as File;
@@ -40,5 +40,4 @@ export class EventoService {
   deletarEvento(id: number): any {
     return this.http.delete(`${this.baseURL}/${id}`);
   }
-
 }
